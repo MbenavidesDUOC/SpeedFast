@@ -1,0 +1,3 @@
+db.url=jdbc:mysql://localhost:3306/speedfast_db?connectionTimeZone=LOCAL
+db.user=root
+db.password=CAMBIAR

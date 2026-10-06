@@ -1,0 +1,21 @@
+-- Ejecutar en MySQL Workbench. No elimina datos existentes.
+CREATE DATABASE IF NOT EXISTS speedfast_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE speedfast_db;
+CREATE TABLE IF NOT EXISTS repartidores (
+ id INT AUTO_INCREMENT PRIMARY KEY,
+ nombre VARCHAR(100) NOT NULL
+) ENGINE=InnoDB;
+CREATE TABLE IF NOT EXISTS pedidos (
+ id INT AUTO_INCREMENT PRIMARY KEY,
+ direccion VARCHAR(255) NOT NULL,
+ tipo ENUM('COMIDA','ENCOMIENDA','EXPRESS') NOT NULL,
+ estado ENUM('PENDIENTE','EN_REPARTO','ENTREGADO') NOT NULL DEFAULT 'PENDIENTE'
+) ENGINE=InnoDB;
+CREATE TABLE IF NOT EXISTS entregas (
+ id INT AUTO_INCREMENT PRIMARY KEY,
+ pedido_id INT NOT NULL,
+ repartidor_id INT NOT NULL,
+ fecha_hora DATETIME NOT NULL,
+ CONSTRAINT fk_entrega_pedido FOREIGN KEY (pedido_id) REFERENCES pedidos(id) ON DELETE RESTRICT,
+ CONSTRAINT fk_entrega_repartidor FOREIGN KEY (repartidor_id) REFERENCES repartidores(id) ON DELETE RESTRICT
+) ENGINE=InnoDB;
